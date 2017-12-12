@@ -1,0 +1,290 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+In questa sezione vedremo in modo sommario i file che implementano la logica
+ di base del gioco di battaglia navale.
+\end_layout
+
+\begin_layout Standard
+Questi file .js si trovano all'interno della sottocartella game.
+\end_layout
+
+\begin_layout Standard
+Il file 
+\series bold
+game.js
+\series default
+, da non confondere con quello contenuto nella sottocartella 
+\emph on
+public
+\emph default
+, contiene tutte quelle funzioni legate alla realizzazione del gioco, in
+ particolare:
+\end_layout
+
+\begin_layout Itemize
+la funzione 
+\series bold
+BattleshipGame(id, idPlayer1, idPlayer2)
+\series default
+: crea una sessione di gioco, assegnandole un identificativo id, i cui partecipa
+nti sono identificati da idPlayer1 ed idPlayer2;
+\end_layout
+
+\begin_layout Itemize
+alcune funzioni che restituiscono informazioni legate al player, quali l'id,
+ lo score, se l'utente ha colpito o meno una nave, ecc.;
+\end_layout
+
+\begin_layout Itemize
+altre funzioni legate alla sessione di gioco, come ottenere la griglia di
+ gioco con le navi, oppure aggiornare lo stato del gioco, ecc.
+\end_layout
+
+\begin_layout Standard
+Il file 
+\series bold
+palyer.js
+\series default
+ contiene tutte le funzioni che riguardano il giocatore durante una sessione
+ di gioco, ad esempio:
+\end_layout
+
+\begin_layout Itemize
+la funzione 
+\series bold
+Player(id)
+\series default
+ è il costruttore di un giocatore identificato da id;
+\end_layout
+
+\begin_layout Itemize
+tutte le funzioni che riguardano le navi, come la loro creazione, il loro
+ posizionamento randomico in una griglia, la verifica dell'affondamento
+ o meno di una nave quando viene colpita e la verifica del numero di navi
+ rimanenti al giocatore che determinano poi la sconfitta quando questo valore
+ è pari a zero.
+\end_layout
+
+\begin_layout Itemize
+la funzione associata al calcolo del punteggio del giocatore quando quest'ultimo
+ colpisce una nave, mette a segno più colpi consecutivi o non colpisce nessun
+ obiettivo:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language=Java,basicstyle={\scriptsize}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+if(this.shipGrid[gridIndex] >= 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Hit!
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.multipleHit ++;
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.score += (this.multipleHit * 20);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.shot=1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.ships[this.shipGrid[gridIndex]].hits++;
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.shots[gridIndex] = 2;
+\end_layout
+
+\begin_layout Plain Layout
+
+    return true;
+\end_layout
+
+\begin_layout Plain Layout
+
+  } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Miss
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.multipleHit = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.shot=0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.shots[gridIndex] = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    return false;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Funzione per il calcolo del punteggio
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Il file 
+\series bold
+settings.js
+\series default
+ contiene le impostazioni riguardanti la dimensione della griglia (10x10)
+ e l'array di navi la cui lunghezza indica il numero di navi, mentre il
+ valore di ogni elemento specifica la dimensione (in termine di cella della
+ griglia) della nave.
+\end_layout
+
+\end_body
+\end_document

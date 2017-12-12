@@ -1,0 +1,351 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+La form di login è estremamente semplice: presenta due soli campi, ossia
+ username e password, in cui l'utente deve inserire le proprie credenziali
+ per poter accedere al gioco, ed un pulsante mediante il quale l'utente
+ può confermare le credenziali inserite.
+\end_layout
+
+\begin_layout Standard
+Di soluzioni per effettuare il login ne esistono di più disparate; in questo
+ caso si è adottata una soluzione più semplice possibile: quando l'utente
+ clicca sul tasto 
+\begin_inset Quotes eld
+\end_inset
+
+Login
+\begin_inset Quotes erd
+\end_inset
+
+ viene creata una richiesta 
+\begin_inset Quotes eld
+\end_inset
+
+POST
+\begin_inset Quotes erd
+\end_inset
+
+, contenente le credenziali dell'utente, che viene spedita al server; quest'ulti
+mo controlla le credenziali e agisce di conseguenza.
+ Se le credenziali sono sbagliate l'utente viene rediretto su una pagina
+ di errore, praticamente identica a quella di login, ma recante un messaggio
+ di errore come quello riportato in figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:messaggio-di-errore-login"
+
+\end_inset
+
+, altrimenti viene rediretto alla pagina 
+\begin_inset Quotes eld
+\end_inset
+
+/game
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/login-error.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:messaggio-di-errore-login"
+
+\end_inset
+
+messaggio di errore visualizzato in fase di login
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sequence-diagram-login"
+
+\end_inset
+
+ viene riportato un diagramma, non troppo formale, che mostra quali siano
+ le interazioni esistenti tra gli oggetti coinvolti nelle operazioni di
+ login.
+ Il diagramma è estremamente semplice.
+ In fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:codice-login"
+
+\end_inset
+
+ viene riportato il codice server-side eseguito all'atto del login.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways true
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/login.svg
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sequence-diagram-login"
+
+\end_inset
+
+sequence-diagram per le operazioni di login
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "numbers=left,numberstyle={\scriptsize},basicstyle={\scriptsize\ttfamily},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+app.post('/login', function(req, res) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	//Using authenticate method to check if username and passoword match
+\end_layout
+
+\begin_layout Plain Layout
+
+	A.authenticate(req.body.username, req.body.password, function(o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		if (!o) {  //if they not match, redirect to error page
+\end_layout
+
+\begin_layout Plain Layout
+
+			res.sendFile(path.join(__dirname, '../public', 'error.html'));
+\end_layout
+
+\begin_layout Plain Layout
+
+		} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+			//If they match, set user session and redirect to game page
+\end_layout
+
+\begin_layout Plain Layout
+
+			req.session.user = o.user;
+\end_layout
+
+\begin_layout Plain Layout
+
+			console.log("Provo a salvare la sessione " + req.session.user);
+\end_layout
+
+\begin_layout Plain Layout
+
+			res.redirect('/game');
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+	});
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:codice-login"
+
+\end_inset
+
+codice server-side eseguito al login
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

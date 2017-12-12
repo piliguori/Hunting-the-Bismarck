@@ -1,0 +1,16 @@
+{
+  "name": "HuntingTheBismarck",
+  "version": "1.0.0",
+  "description": "Multiplayer Battleship game, with NodeJS, Express and Socket.io",
+  "author": {
+    "name": "S. Barone, A. Di Martino, P. Liguori"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "4.12.3",
+    "express-session": "^1.15.6",
+    "html-entities": "1.1.2",
+    "mysql": "^2.15.0",
+    "socket.io": "1.3.5"
+  }
+}

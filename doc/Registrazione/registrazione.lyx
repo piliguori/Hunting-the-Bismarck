@@ -1,0 +1,1044 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+La form di registrazione è inclusa nella pagina html
+\emph on
+ register.html
+\emph default
+.
+ Essa presenta diversi campi di input, tra cui 
+\emph on
+username
+\emph default
+ e 
+\emph on
+password
+\emph default
+ che verranno usati per identificare l'utente al login.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Controllo-della-disponibilità-username"
+
+\end_inset
+
+Controllo della disponibilità di uno username
+\end_layout
+
+\begin_layout Standard
+È necessario che ogni username sia unico: non possono, ovviamente, esserci
+ due utenti con lo stesso username; per questo motivo è stato previsto un
+ controllo, implementato usando una richiesta asincrona spedita verso il
+ server, al fine di evitare che l'utente possa tentare di registrarsi usando
+ uno username non disponibile, perché già utilizzato da qualche altro giocatore.
+ 
+\end_layout
+
+\begin_layout Standard
+In figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:controllo-disponibilità-username"
+
+\end_inset
+
+ viene riportato uno schema, non troppo formale, delle interazioni esistenti
+ tra gli oggetti coinvolti nel controllo.
+ Ogni volta che un utente inserisce un nuovo carattere nella textbox associata
+ allo username, quando l'utente rilascia il tasto premuto, viene generato
+ un evento 
+\begin_inset Quotes eld
+\end_inset
+
+on key up
+\begin_inset Quotes erd
+\end_inset
+
+, al quale è associata la la callback 
+\emph on
+checkUsername()
+\emph default
+, la cui implementazione è visibile nel file 
+\emph on
+register.js
+\emph default
+ ed è riportata nel box 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:checkUsename()"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "numbers=left,numberstyle={\scriptsize},basicstyle={\scriptsize\ttfamily},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function checkUsername() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	var usern = document.getElementById("uname").value;
+\end_layout
+
+\begin_layout Plain Layout
+
+	var req = newXMLHttpRequest();
+\end_layout
+
+\begin_layout Plain Layout
+
+	req.onreadystatechange = function() {
+\end_layout
+
+\begin_layout Plain Layout
+
+		if (req.readyState == 4)
+\end_layout
+
+\begin_layout Plain Layout
+
+		 if (req.status == 200)
+\end_layout
+
+\begin_layout Plain Layout
+
+			manageResponse(req.responseText);
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	req.open("POST", "/username", true);
+\end_layout
+
+\begin_layout Plain Layout
+
+	req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+\end_layout
+
+\begin_layout Plain Layout
+
+	var par = "username=" + escape(usern);
+\end_layout
+
+\begin_layout Plain Layout
+
+	console.log(par);
+\end_layout
+
+\begin_layout Plain Layout
+
+	req.send(par);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:checkUsename()"
+
+\end_inset
+
+checkUsename()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tale funzione crea un nuovo oggetto 
+\emph on
+XMLHttpRequest
+\emph default
+ usando la funzione 
+\emph on
+newXMLHttpRequest(), 
+\emph default
+riportata nel box 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:newXMLHttpRequest()"
+
+\end_inset
+
+, seguendo un approccio 
+\begin_inset Quotes eld
+\end_inset
+
+canonico
+\begin_inset Quotes erd
+\end_inset
+
+, il quale prevede la creazione di suddetto oggetto, la registrazione di
+ una callback da richiamare al sopraggiungere della risposta dal server,
+ e, in questo caso usando il metodo 
+\emph on
+POST,
+\emph default
+ inviare il contenuto della textbox al server.
+ Tale funzione ha lo scopo di garantire portabilità dei metodi previsti
+ dalla tecnica AJAX.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "numbers=left,numberstyle={\scriptsize},basicstyle={\scriptsize\ttfamily},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function newXMLHttpRequest() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	var request = null;
+\end_layout
+
+\begin_layout Plain Layout
+
+	var browser = navigator.userAgent.toUpperCase();
+\end_layout
+
+\begin_layout Plain Layout
+
+	if(typeof(XMLHttpRequest) == "function" ||
+\end_layout
+
+\begin_layout Plain Layout
+
+		typeof(XMLHttpRequest) == "object") {
+\end_layout
+
+\begin_layout Plain Layout
+
+		request = new XMLHttpRequest();
+\end_layout
+
+\begin_layout Plain Layout
+
+	} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+		if(window.ActiveXObject && browser.indexOf("MSIE 4") < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+			if(browser.indexOf("MSIE 5") < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+				request = new ActiveXObject("Msxml2.XMLHTTP");
+\end_layout
+
+\begin_layout Plain Layout
+
+			} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+				request = new ActiveXObject("Microsoft.XMLHTTP");
+\end_layout
+
+\begin_layout Plain Layout
+
+			}
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	return request;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:newXMLHttpRequest()"
+
+\end_inset
+
+newXMLHttpRequest()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La funzione 
+\emph on
+checkUsername()
+\emph default
+ associa all'evento 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+on ready state change
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ della risposta una callback, la quale, se la risposta è un messaggio 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+200: OK
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ e se lo stato della stessa è 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+4: ready
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+, richiama la funzione 
+\emph on
+manageResponse()
+\emph default
+, passandogli come parametro la risposta giunta dal server.
+ La risposta viene generata, lato server, dalla funzione riportata nel box
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:generazione-risposta-checkUsername()"
+
+\end_inset
+
+, richiamata al sopraggiungere di una richiesta 
+\emph on
+POST
+\emph default
+ all'url 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+/username
+\begin_inset Quotes erd
+\end_inset
+
+
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "numbers=left,numberstyle={\scriptsize},basicstyle={\scriptsize\ttfamily},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+app.post('/username', function(req, res) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	var uname = req.body.username;
+\end_layout
+
+\begin_layout Plain Layout
+
+	connection.query('select count(*) as namescount from users where username
+ = ?', [uname],
+\end_layout
+
+\begin_layout Plain Layout
+
+		function(err, result) {
+\end_layout
+
+\begin_layout Plain Layout
+
+			if (err) {
+\end_layout
+
+\begin_layout Plain Layout
+
+				console.log('error');
+\end_layout
+
+\begin_layout Plain Layout
+
+			} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+				var response = result[0].namescount;
+\end_layout
+
+\begin_layout Plain Layout
+
+				res.send({'response': response});
+\end_layout
+
+\begin_layout Plain Layout
+
+			}
+\end_layout
+
+\begin_layout Plain Layout
+
+		});
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:generazione-risposta-checkUsername()"
+
+\end_inset
+
+generazione della risposta per checkUsername()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tale risposta contiene il numero di occorrenze di 
+\begin_inset Quotes eld
+\end_inset
+
+username
+\begin_inset Quotes erd
+\end_inset
+
+ nel database che mantiene le informazioni relative ai giocatori registrati.
+ Se la risposta è diversa da zero la callback 
+\emph on
+manageResponse()
+\emph default
+ farà si che di fianco alla textbox dello username compaia un messaggio
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Username non disponibile
+\begin_inset Quotes erd
+\end_inset
+
+, così come riportato in figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:form-di-registrazione"
+
+\end_inset
+
+, altrimenti il messaggio sarà 
+\begin_inset Quotes eld
+\end_inset
+
+Username disponibile
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways true
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/checkUsername.svg
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:controllo-disponibilità-username"
+
+\end_inset
+
+controllo disponibilità di uno username
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/uname_not_available.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:form-di-registrazione"
+
+\end_inset
+
+form di registrazione
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Registrazione di un utente
+\end_layout
+
+\begin_layout Standard
+Il processo di registrazione, in se, è molto semplice: lo schema in figura
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:processo-di-registrazione"
+
+\end_inset
+
+ mostra le interazioni esistenti tra gli oggetti coinvolti nel processo
+ di registrazione.
+\end_layout
+
+\begin_layout Standard
+Quando l'utente clicca sul pulsante 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+Registrati
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ della form di registrazione, viene richiamata la funzione 
+\emph on
+formValidation()
+\emph default
+ associata a tale evento.
+ La prima operazione effettuata da tale funzione è controllare che i campi
+ username e password non siano vuoti; in questo caso viene mostrato un messaggio
+ che invita l'utente a riempire suddetti campi (fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:campi-obbligatori"
+
+\end_inset
+
+).
+ Se entrambi i campi sopracitati non sono nulli, viene inviata una richiesta
+ POST al server, contente i dati che l'utente ha inserito nella form, affinché
+ vengano registrate nel database.
+\end_layout
+
+\begin_layout Standard
+Lato server viene eseguita la funzione riportata nel box 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:server-side-registrazione"
+
+\end_inset
+
+, la quale non fa altro che inserire i dati inviatigli dal client all'interno
+ del database.
+ Dopo che la registrazione si è conclusa con successo, l'utente viene automatica
+mente rediretto alla pagina del gioco, affinché attenda l'inizio di una
+ nuova partita.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways true
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/registration.svg
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:processo-di-registrazione"
+
+\end_inset
+
+processo di registrazione
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/mandatory_fields.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:campi-obbligatori"
+
+\end_inset
+
+campi obbligatori
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "numbers=left,numberstyle={\scriptsize},basicstyle={\scriptsize\ttfamily},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+app.post('/register', function(req, res) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	var users = {
+\end_layout
+
+\begin_layout Plain Layout
+
+		"nome": req.body.nome,
+\end_layout
+
+\begin_layout Plain Layout
+
+		"cognome": req.body.cognome,
+\end_layout
+
+\begin_layout Plain Layout
+
+		"country": req.body.country,
+\end_layout
+
+\begin_layout Plain Layout
+
+		"username": req.body.username,
+\end_layout
+
+\begin_layout Plain Layout
+
+		"password": req.body.password
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+	//Check user's data and insert it into database if username does not already
+ exist
+\end_layout
+
+\begin_layout Plain Layout
+
+	R.register(req.body.nome, req.body.cognome, req.body.country, req.body.username,
+ req.body.password, 
+\end_layout
+
+\begin_layout Plain Layout
+
+		function(e) {
+\end_layout
+
+\begin_layout Plain Layout
+
+			if (e) {
+\end_layout
+
+\begin_layout Plain Layout
+
+				res.sendFile(path.join(__dirname, '../public', 'error.html'));
+\end_layout
+
+\begin_layout Plain Layout
+
+			} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+				//Set user session and redirect to game page
+\end_layout
+
+\begin_layout Plain Layout
+
+				req.session.user = users.username;
+\end_layout
+
+\begin_layout Plain Layout
+
+				res.redirect('/game');
+\end_layout
+
+\begin_layout Plain Layout
+
+			}
+\end_layout
+
+\begin_layout Plain Layout
+
+		});
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:server-side-registrazione"
+
+\end_inset
+
+codice server-side per la registrazione di un utente
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

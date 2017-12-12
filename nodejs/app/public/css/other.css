@@ -1,0 +1,103 @@
+.bg1 {
+	background-image: url("../img/wallpaper1.jpg");
+	background-size: 100% 100%;
+}
+
+.bg2 {
+	background-image: url("../img/wallpaper2.jpg");
+	background-size: 100% 100%;
+}
+
+.bg3 {
+	background-image: url("../img/wallpaper3.jpg");
+	background-size: 100% 100%;
+}
+
+.bg4 {
+	background-image: url("../img/wallpaper4.jpg");
+	background-size: 100% 100%;
+}
+
+.bg5 {
+	background-image: url("../img/wallpaper6.jpg");
+	background-size: 100% 100%;
+}
+
+.twhite {
+	color: white;
+}
+
+.registerform {
+	align: center;
+	width : 40%;
+	height: 50%;
+	background: rgba(11,11,11, 0.8);
+	color: white;
+	margin: 0 auto;
+}
+
+.pad5px {
+	padding-left : 5px;
+	padding-top: 2px;
+}
+
+a {text-decoration: none; color: white; padding: 15px 5px 2px 5px; margin-top: 5px;}
+a:hover {color: red;}
+
+.indexform {
+	align: center;
+	width : 30%;
+	height: 40%;
+	background: rgba(11,11,11, 0.8);
+	color: white;
+	margin: 0 auto;
+};
+
+.graybox {
+	width: 300px;
+	background: rgba(11,11,11, 0.8);
+	color: white;
+	align: center;
+}
+
+.rankform {
+	width: 300px;
+	margin: 0 auto;
+	background: rgba(11,11,11, 0.8);
+	color: white;
+	align: center;
+}
+
+.rankform td {
+	width: 100px;
+	color: white;
+}
+
+.rankform th {
+	width: 100px;
+	color: white;
+}
+
+.errordiv {
+	width: 300px;
+	margin: 0 auto;
+	background: rgba(11,11,11, 0.8);
+	color: white;
+	align: center;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 110%;
+	margin: 0 auto;
+	margin-left: -10px;
+
+	color: white;
+	font-size: 12px;
+	background: rgba(11,11,11, 0.8);
+}
+
+.footer p {
+	padding-left: 10px;
+}

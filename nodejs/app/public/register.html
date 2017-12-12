@@ -1,0 +1,62 @@
+<html>
+<head>
+	<title>Registrati</title>
+	<link rel="stylesheet" type="text/css" href="css/other.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="register.js"></script>
+</head>
+<body class=bg2>
+	<div class="registerform">
+		<h2 align="center" class="pad5px">Registrati</h2>
+		<p class="pad5px">Scegli il tuo account e inserisci i tuoi dati:</p>
+		<form id="regform" method="POST" action="/register" onsubmit="return formValidation()">
+			<table class="pad5px">
+					<tr>
+						<td class="twhite">Nome:</td>
+						<td><input type="text" name="nome" size="20"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="twhite">Cognome:</td>
+						<td><input type="text" name="cognome" size="20"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="twhite">Paese:</td>
+						<td>
+							<select name="country" size=1>
+							<option selected> Italia
+							<option> Deutschland
+							<option> USA
+							<option> UK
+							<option> Other
+							</select>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="twhite">Username:</td>
+						<td><input type="text" id="uname" name="username" size="20" onkeyup="checkUsername()"></td>
+						<td class="twhite" id="unameRes" style="width: 150px; font-size: small;"></td>
+					</tr>
+					<tr>
+						<td class="twhite">Password:</td>
+						<td><input type="password" id="passwd" name="password" size="20"></td>
+						<td class="twhite" id="passwdRes" style="width: 150px; font-size: small;"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Registrati" id="button1"></td>
+						<td></td>
+					</tr>
+				</table>
+		</form>
+		<a href="index.html">Torna a Login</a>
+	</div>
+
+	<div class="footer">
+		<p>2017, S.Barone, A. Di Martino, P. Liguori<p>
+	</div>
+
+	</body>
+</html>

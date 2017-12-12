@@ -1,0 +1,42 @@
+<html>
+
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="css/other.css">
+</head>
+
+<body class="bg1">
+	<div class="indexform">
+		<h2 align="center" class="pad5px">Hunting The Bismarck</h2>
+		<p class="pad5px">Effettua il login:</p>
+		<form id="loginform" method="POST" action="/login">
+			<table class="pad5px">
+				<tr>
+					<td class="twhite">Username:</td>
+					<td><input type="text" id="uname" name="username" size="20"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="twhite">Password:</td>
+					<td><input type="password" id="passwd" name="password" size="20"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Login"></td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
+		<div id="loginRes" class="pad5px" style="width: 100%; font-size: small; margin-bottom: 5px; color: red;">Username/password errati</div>
+		<a href="register.html" class="pad5px">Registrati</a>
+		<a href="rank.html" class="pad5px">Classifica</a>
+
+	</div>
+
+	<div class="footer">
+		<p>2017, S.Barone, A. Di Martino, P. Liguori<p>
+	</div>
+</body>
+
+</html>

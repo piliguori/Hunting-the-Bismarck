@@ -1,0 +1,26 @@
+Per ora ci sono quattro cartelle:
+
+
+
+1) Cartella Client: 
+	Riguarda i file client.js e game.js in public
+	
+2) Cartella Register/Login:
+	Riguarda i file authenticate.js e register.js in controller e router.js in server
+	
+
+3) Cartella Game (breve descrizione dato che è quello che abbiamo toccato meno):
+	Riguarda la logica di gaming, quindi tutti i file che si trovano nella cartella game
+	
+
+4) Cartella Server: 
+	il file gameserver.js
+	
+5) Cartella Intro: breve intro al gioco
+	
+	
+Per fare un lavoro equo tenendo pure conto di quello su cui abbiamo più messo le mani, direi:
+
+Fonzo si fa la cartella 1) Client
+Tore fa la cartella 2) Register
+Pietro fa le ultime 3

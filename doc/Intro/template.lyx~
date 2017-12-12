@@ -1,0 +1,574 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\series bold
+Hunting the Bismark
+\series default
+ è un gioco online multiplayer di battaglia navale.
+ 
+\end_layout
+
+\begin_layout Standard
+Il giocatore, una volta collegato al server attende in una 
+\emph on
+waiting room,
+\emph default
+ nel caso in cui non ci siano almeno due utenti collegati, prima di poter
+ dar inizio ad una sessione di gioco.
+\end_layout
+
+\begin_layout Standard
+Per poter giocare, l'utente deve essere registrato e quindi l'accesso viene
+ garantito solo con l'autenticazione dello stesso.
+ I dati degli utenti vengono salvati in un database, creato e gestito attraverso
+ MySQL.
+ 
+\end_layout
+
+\begin_layout Standard
+Il gioco rispecchia le regole della tradizionale battaglia navale.
+ Ogni giocatore visualizza due griglie di gioco, come illustrato nell'immagine
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Griglie-giocatore"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+sulla sinistra è presente la griglia del giocatore, identificata dal proprio
+ username (inserito in fase di registrazione / login), e dallo score del
+ math corrente che viene aggiornato volta per volta.
+ In questa griglia è possibile vedere la disposizione delle proprie navi
+ (disposte in maniera randomica).
+ 
+\end_layout
+
+\begin_layout Itemize
+sulla destra è presente una seconda griglia, quella dell'avversario.
+ Anche qui è visibile l'username dell'avversario con lo score che egli sta
+ realizzando nel match corrente.
+ Su questa griglia il giocatore, cliccando su una delle caselle, prova a
+ colpire una delle navi dell'avversario la cui posizione, ovviamente, non
+ è visibile.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Img/01.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Griglie-giocatore"
+
+\end_inset
+
+Griglie giocatore
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Le navi disposte in modo casuale nelle griglie degli utenti sono in ugual
+ numero e condividono le medesime dimensioni (ma non la posizione).
+\end_layout
+
+\begin_layout Standard
+Il giocatore, quando è il proprio turno, clicca su una delle caselle della
+ griglia dell'avversario.
+ Al momento del click viene emesso un suono di un cannone nel tentativo
+ di voler emulare una battaglia navale quanto più 
+\begin_inset Quotes eld
+\end_inset
+
+reale
+\begin_inset Quotes erd
+\end_inset
+
+ possibile.
+ In seguito allo sparo, ci sono due possibili scenari:
+\end_layout
+
+\begin_layout Itemize
+una nave avversaria era posizionata sulla casella cliccata: in questo caso
+ sulla casella appare un simbolo di una palla di fuoco, accompagnato da
+ un suono che emula un'esplosione.
+\end_layout
+
+\begin_layout Itemize
+nessuna nave avversaria era posizionata sulla casella cliccata: in questo
+ caso sulla casella appare un simbolo che fa riferimento a uno 
+\begin_inset Quotes eld
+\end_inset
+
+splash
+\begin_inset Quotes erd
+\end_inset
+
+, accompagnato da un suono che emula una situazione in cui il colpo sparato
+ è caduto in acqua.
+\end_layout
+
+\begin_layout Standard
+Nel caso in cui l'utente faccia centro, allora sarà ancora il suo turno
+ fino a quando non sbaglierà colpo: in questo caso sarà il turno dell'avversario
+ e l'utente deve aspettare il fuoco nemico.
+ Ogni qualvolta si fa centro, l'utente incrementa il proprio score.
+ Colpi multipli andati a buon segno incrementano linearmente lo score corrente.
+ L'utente non può, inoltre, sparare su una casella che aveva già colpito
+ in precedenza.
+\end_layout
+
+\begin_layout Standard
+I due avversari hanno possibilità di interagire tra loro anche tramite una
+ chat che è disposta nella parte basse della pagina:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Img/02.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Chat giocatori
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Vince la partita chi affonda per primo tutte le navi dell'avversario.
+\end_layout
+
+\begin_layout Standard
+Il numero di partite vinte, lo score totale realizzato e il record personale
+ dell'utente vengono tutti salvati nel database ed è possibile visualizzarli
+ nell'apposita pagina di rank.
+\end_layout
+
+\begin_layout Section
+Realizzazione
+\end_layout
+
+\begin_layout Standard
+In questa sezione e nelle successive sarà spiegato come realizzare il gioco
+ sopra illustrato.
+\end_layout
+
+\begin_layout Standard
+Il gioco si basa su 
+\series bold
+nodeJS
+\series default
+, fa utilizzo di 
+\series bold
+socket.io
+\series default
+ per la comunicazione client-server e di 
+\series bold
+canvas
+\series default
+ per il rendering dinamico delle immagini.
+ Il database in cui vengono salvate le informazioni degli utenti è stato
+ creato e gestito con 
+\series bold
+MySQL.
+\end_layout
+
+\begin_layout Standard
+Per prima cosa diamo un occhio alla disposizione dei file e delle cartelle
+ che hanno costituiscono nel loro insieme il gioco:
+\end_layout
+
+\begin_layout Itemize
+nella cartella principale 
+\emph on
+nodejs
+\emph default
+ troviamo:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\emph on
+server.js
+\emph default
+: vengono richiesti tutti i moduli, e viene messo il server in ascolto su
+ un porto specifico;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+config.js
+\emph default
+: file di configurazione del database;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+huntingthebismark.mwb
+\emph default
+: il database creato;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+package.json
+\emph default
+: il pacchetto json;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+nella sottocartella 
+\emph on
+node/module 
+\emph default
+troviamo tutti i moduli installati;
+\end_layout
+
+\begin_layout Itemize
+nella sottocartella 
+\emph on
+app/public
+\emph default
+ troviamo:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+le pagine html richieste;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+client.js 
+\emph default
+e 
+\emph on
+game.js
+\emph default
+ che definiscono il comportamento e la grafica lato client;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+login.js
+\emph default
+ e 
+\emph on
+register.js 
+\emph default
+per poter effettuare particolari particolari funzioni in fase di registrazione
+ e login, come ad esempio verificare la disponibilità dello username scelto;
+\end_layout
+
+\begin_layout Itemize
+i file 
+\emph on
+.css
+\emph default
+;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+nella sottocartella 
+\emph on
+app/server
+\emph default
+ troviamo:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+la cartella 
+\emph on
+game
+\emph default
+, all'interno della quale si trovano tutti file js che contengono le funzioni
+ necessarie ad implementare tutta la logica del gioco;
+\end_layout
+
+\begin_layout Itemize
+la cartella 
+\emph on
+controllers
+\emph default
+, contenente i file js necessari alla registrazione ed autenticazione dell'utent
+e.
+ I moduli implementati in questi file vengono utilizzati dal file 
+\emph on
+router.js
+\emph default
+;
+\end_layout
+
+\begin_layout Itemize
+il file 
+\emph on
+gameServer.js
+\emph default
+, che implementa la logica di gioco lato server.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Per quanto riguarda il database, esso contiene i seguenti campi:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+id
+\emph default
+: identificativo unico dell'utente;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+nome, cognome, country
+\emph default
+: sono informazioni relative all'utente che vengono inserite all'atto della
+ registrazione;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+username
+\emph default
+ e 
+\emph on
+password
+\emph default
+: sono le credenziali di accesso dell'utente.
+ Vengono create in fase di registrazione ed utilizzate per effettuare il
+ login;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+score
+\emph default
+, 
+\emph on
+max_score
+\emph default
+, 
+\emph on
+vinte
+\emph default
+: informazioni legate ai risultati che l'utente ottiene durante le varie
+ sessioni di gioco.
+ 
+\emph on
+Score
+\emph default
+ indica il punteggio totale realizzato dall'utente in tutte le sue partite
+ disputate; 
+\emph on
+max_score
+\emph default
+ rappresenta il record personale dell'utente ottenuto in una singola partita;
+ 
+\emph on
+vinte
+\emph default
+ indica quante match disputati sono stati vinti dall'utente.
+\end_layout
+
+\begin_layout Standard
+Prima di passare alla descrizione dei singoli file 
+\emph on
+js
+\emph default
+, viene mostrato il caso d'uso che specifica le azioni che un utente, registrato
+ o meno, può effettuare interagendo col sistema.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/pietro/HuntingTheBismarck/doc/use_case.svg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Use-case diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
