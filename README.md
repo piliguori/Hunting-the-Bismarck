@@ -7,4 +7,5 @@ Socket.io is also used to implement a minimal chat messaging service between the
 Hunting the Bismarck uses MySql DBMS system to store some informations about the players, such as
 total score, highest score during a single game and number of won game.
 
+This project was developed for Telematic Apllications exam (University of Naples Federico II - Computer Engineering) in collaboration with https://github.com/AlfonsoDiMartino and https://github.com/SalvatoreBarone
 
